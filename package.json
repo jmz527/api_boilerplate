@@ -4,9 +4,9 @@
   "description": "boilerplate for express server with sqlite3 db",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon lib/index.js --exec babel-node --presets es2015,stage-2",
-    "build": "babel lib -d dist",
-    "serve": "node dist/index.js",
+    "start": "nodemon src/server.js --exec babel-node --presets es2015,stage-2",
+    "build": "babel src -d dist",
+    "serve": "node dist/server.js",
     "test": "mocha --compilers js:babel-register",
     "old-start": "node server.js"
   },
