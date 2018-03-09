@@ -63,4 +63,5 @@ sudo rm -rv config migrations models seeders db.development.sqlite node_modules
 # Thanks
 
 http://docs.sequelizejs.com/manual/tutorial/migrations.html
+
 https://github.com/babel/example-node-server
