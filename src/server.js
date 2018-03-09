@@ -4,7 +4,7 @@ import logger from 'morgan'
 import bodyParser from 'body-parser'
 import debug from 'debug'
 
-var index = require('./routes/index')
+import index from './routes/index'
 
 const app = express()
 const DBug = debug('express-test:server')
@@ -54,7 +54,7 @@ console.log(`http://localhost:${PORT}`)
  * Normalize a port into a number, string, or false.
  */
 
-function normalizePort (val) {
+function normalizePort(val) {
   var port = parseInt(val, 10)
 
   if (isNaN(port)) {
@@ -74,7 +74,7 @@ function normalizePort (val) {
  * Event listener for HTTP server "error" event.
  */
 
-function onError (error) {
+function onError(error) {
   if (error.syscall !== 'listen') {
     throw error
   }
@@ -102,7 +102,7 @@ function onError (error) {
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening () {
+function onListening() {
   var addr = server.address()
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
