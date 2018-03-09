@@ -1,6 +1,6 @@
 # express_sqlite_boil
 
-homemade boilerplate for Express/SQLite3 servers
+homemade boilerplate server for Express/SQLite3/Sequelize
 
 # Description
 
