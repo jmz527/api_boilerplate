@@ -1,9 +1,12 @@
-# express_sqlite_boil
+# express_sequelize_server
 
 homemade boilerplate server for Express/SQLite3/Sequelize
 
 # Description
 
+This is a little express server and configuration files for sequelize and an sqlite3 database.
+
+Also includes a seed file with 101 users
 
 
 # Technologies Used:
@@ -16,24 +19,20 @@ ExpressJS + SQLite3 + Sequelize
 First, clone this repo to a directory on your local machine and run `npm i`:
 
 ```sh
-git clone git@github.com:jmz527/express_sqlite_boil.git
-cd express_sqlite_boil/
-npm i
+git clone git@github.com:jmz527/express_sequelize_server.git
+cd express_sequelize_server/
+yarn
 ```
 
 # Commands:
 
-# Directory Tree:
 
 ```sh
-
+yarn start - starts up the development environment
+yarn build - builds the dist dir from the src
+yarn serve - serves up the server within the dist dir
+yarn test - runs Mocha/Chai tests within the test dir
 ```
-
-# Thanks
-
-http://docs.sequelizejs.com/manual/tutorial/migrations.html
-
-
 
 # Sequelize-CLI Steps
 
@@ -56,6 +55,12 @@ node_modules/.bin/sequelize db:seed:undo:all
 
 
 
-
-sudo rm -rv config migrations models seeders db.development.sqlite node_modules package-lock.json
+sudo rm -rv dist
+sudo rm -rv config migrations models seeders db.development.sqlite node_modules
 ```
+
+
+# Thanks
+
+http://docs.sequelizejs.com/manual/tutorial/migrations.html
+https://github.com/babel/example-node-server
