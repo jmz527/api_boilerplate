@@ -1,7 +1,8 @@
-var models = require('../models')
-var express = require('express')
-var router = express.Router()
-var bcrypt = require('bcryptjs')
+import models from '../../models'
+import express from 'express'
+import bcrypt from 'bcryptjs'
+
+const router = express.Router()
 
 // allow CORS
 router.use((req, res, next) => {
@@ -74,4 +75,4 @@ router.post('/destroy', (req, res) => {
   })
 })
 
-module.exports = router
+export default router

@@ -6,6 +6,7 @@ import debug from 'debug'
 
 import models from '../models'
 import index from './routes/index'
+import users from './routes/users'
 
 const app = express()
 const DBug = debug('express-test:server')
@@ -25,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 // Routes
 app.use('/', index)
+app.use('/users', users)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
