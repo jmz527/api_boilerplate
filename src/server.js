@@ -4,6 +4,7 @@ import logger from 'morgan'
 import bodyParser from 'body-parser'
 import debug from 'debug'
 
+import models from '../models'
 import index from './routes/index'
 
 const app = express()
@@ -44,11 +45,18 @@ app.use((err, req, res, next) => {
 })
 
 var server = http.createServer(app)
-server.listen(PORT)
-server.on('error', onError)
-server.on('listening', onListening)
-console.log(`Express server listening on port ${PORT}`)
-console.log(`http://localhost:${PORT}`)
+
+/**
+ * Listen on provided port, on all network interfaces.
+ * sync() will create all table if they doesn't exist in database
+ */
+models.sequelize.sync().then(() => {
+  server.listen(PORT)
+  server.on('error', onError)
+  server.on('listening', onListening)
+  console.log(`Express server listening on port ${PORT}`)
+  console.log(`http://localhost:${PORT}`)
+})
 
 /**
  * Normalize a port into a number, string, or false.
