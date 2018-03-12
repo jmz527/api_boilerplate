@@ -1,4 +1,7 @@
 var bcrypt = require('bcryptjs');
+const fs = require('fs')
+const path = require('path')
+
 
 var userArr = [
   { "id": 0, "first_name": "John", "last_name": "Doe", "email": "user0@example.com", "username": "user0", "password": "password0", "createdAt": "2017-12-23 03:06:05.859 +00:00", "updatedAt": "2017-12-23 03:06:05.859 +00:00" },
@@ -106,56 +109,26 @@ var userArr = [
 ];
 
 
-
 userArr.map(function(user) {
   bcrypt.genSalt(10, function(err, salt) {
       bcrypt.hash(user.password, salt, function(err, hash) {
           // Store hash in your password DB. 
       console.log({ salt, hash });
 
-      return Object.assign({}, user, { password: hash });
+      // return Object.assign({}, user, { password: hash });
       });
   });
 })
 
 
+// saveJSON("user_seed", seedArr);
 
 
-// var salt = bcrypt.genSaltSync(10);
-// var hash = bcrypt.hashSync("B4c0/\/", salt);
-// // Store hash in your password DB. 
-
-
-// console.log({ salt, hash });
-
-// // Load hash from your password DB. 
-// console.log(bcrypt.compareSync("B4c0/\/", hash)); // true 
-// console.log(bcrypt.compareSync("not_bacon", hash)); // false 
-
-
-// // var hash = bcrypt.hashSync('bacon', 8);
-
-
-
-
-
-
-
-
-
-
-    // // Load hash from your password DB. 
-    // bcrypt.compare("B4c0/\/", hash, function(err, res) {
-    //     console.log("true in hash");
-    //     console.log(res); // res === true 
-    // });
-    // bcrypt.compare("not_bacon", hash, function(err, res) {
-    //     console.log("false in hash");
-    //     console.log(res); // res === false 
-    // });
-
-    // // As of bcryptjs 2.4.0, compare returns a promise if callback is omitted: 
-    // bcrypt.compare("B4c0/\/", hash).then((res) => {
-    //     console.log("promise");
-    //     console.log(res); // res === true 
-    // });
+// // JSON SAVE
+// // =========================================================== //
+// function saveJSON(thisPath, json) {
+//   fs.writeFile(`${thisPath}.json`, JSON.stringify(json, null, 4), function(err){
+//     console.log(`\x1b[36m%s\x1b[0m`, `JSON file successfully written!`)
+//     console.log(`\x1b[36m%s\x1b[0m`, `Check your project directory for the ${thisPath}.json file`)
+//   })
+// }
