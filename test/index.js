@@ -82,6 +82,24 @@ describe('http://127.0.0.1:3030/users/id/0', () => {
       done();
     });
   });
+
+  const userID = 0;
+
+  it('should return a user', () => {
+    axios.get('http://127.0.0.1:3030/users/id/'+userID)
+      .then((res) => {
+        chai.expect(res.data).to.be.an('object');
+        chai.expect(res.data.id).to.be.an('number');
+        chai.expect(res.data.id).to.equal(userID);
+        chai.expect(res.data.first_name).to.be.an('string');
+        chai.expect(res.data.last_name).to.be.an('string');
+        chai.expect(res.data.username).to.be.an('string');
+        chai.expect(res.data.password).to.be.an('string');
+        chai.expect(res.data.createdAt).to.be.an('string');
+        chai.expect(res.data.updatedAt).to.be.an('string');
+      })
+  });
+
 });
 
 const newUser = {
