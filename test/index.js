@@ -158,6 +158,26 @@ describe('http://127.0.0.1:3030/users/auth', () => {
   });
 });
 
+
+describe('http://127.0.0.1:3030/users/update', () => {
+  it('should return 200', done => {
+
+    axios.post('http://127.0.0.1:3030/users/update/' + newUserID, { username: "UPDATED_USER_NAME" })
+      .then((res) => {
+        chai.expect(res.status).to.equal(200);
+
+
+        console.log(res.data);
+        // chai.expect(res.data).to.be.an('number');
+        // chai.expect(res.data).to.equal(1);
+        done();
+      })
+
+  });
+});
+
+
+
 describe('http://127.0.0.1:3030/users/destroy', () => {
   it('should return 200', done => {
 

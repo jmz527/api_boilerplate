@@ -67,6 +67,19 @@ router.post('/create', (req, res) => {
   */
 })
 
+/* POST update user */
+router.post('/update/:user_id', (req, res) => {
+  models.User.upsert({ username: req.body.username }, {
+    where: {
+      id: req.params.user_id
+    }
+  }).then((m) => { console.log(`\x1b[33m%s\x1b[0m`, 'FOUND USER!!!!!!')
+    res.json(m)
+  })
+
+  // res.json(["EDIT USER"])
+})
+
 /* POST destroy user */
 router.post('/destroy', (req, res) => {
   models.User.destroy({
