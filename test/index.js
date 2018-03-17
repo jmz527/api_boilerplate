@@ -45,7 +45,7 @@ import chai from 'chai'
 //   adapter: axiosTestAdapter,
 // }
 
-describe('http://127.0.0.1:3030', () => {
+describe("The Server's / route", () => {
   it('should return 200', done => {
     http.get('http://127.0.0.1:3030', res => { // console.log('statusCode', res.statusCode)
       chai.expect(res.statusCode).to.equal(200);
@@ -55,7 +55,7 @@ describe('http://127.0.0.1:3030', () => {
 });
 
 
-describe('http://127.0.0.1:3030/users', () => {
+describe("The Server's /users route", () => {
   it('should return 200', done => {
     http.get('http://127.0.0.1:3030', res => { // console.log('statusCode', res.statusCode)
       chai.expect(res.statusCode).to.equal(200);
@@ -75,7 +75,7 @@ describe('http://127.0.0.1:3030/users', () => {
   });
 });
 
-describe('http://127.0.0.1:3030/users/id/0', () => {
+describe("The Server's /users/id/0 route", () => {
   it('should return 200', done => {
     http.get('http://127.0.0.1:3030/users/id/0', res => { // console.log('statusCode', res.statusCode)
       chai.expect(res.statusCode).to.equal(200);
@@ -112,8 +112,8 @@ const newUser = {
 
 var newUserID;
 
-describe('http://127.0.0.1:3030/users/create', () => {
-  it('should return 200', done => {
+describe("The Server's /users/create route", () => {
+  it('should return 200 and { created: true, user_id: <id> }', done => {
 
     axios.post('http://127.0.0.1:3030/users/create', newUser)
       .then((res) => {
@@ -129,7 +129,23 @@ describe('http://127.0.0.1:3030/users/create', () => {
 });
 
 
-describe('http://127.0.0.1:3030/users/auth', () => {
+describe("The Server's /users/create route", () => {
+  it('should return 200 and { created: false }', done => {
+
+    axios.post('http://127.0.0.1:3030/users/create', newUser)
+      .then((res) => {
+        chai.expect(res.status).to.equal(200);
+        chai.expect(res.data).to.be.an('object');
+        chai.expect(res.data.created).to.be.false;
+        done();
+      })
+
+  });
+});
+
+
+
+describe("The Server's /users/auth route", () => {
   it('should return 200', done => {
 
     axios.post('http://127.0.0.1:3030/users/auth', {
@@ -159,17 +175,16 @@ describe('http://127.0.0.1:3030/users/auth', () => {
 });
 
 
-describe('http://127.0.0.1:3030/users/update', () => {
+describe("The Server's /users/update route", () => {
   it('should return 200', done => {
 
     axios.post('http://127.0.0.1:3030/users/update/' + newUserID, { username: "UPDATED_USER_NAME" })
       .then((res) => {
         chai.expect(res.status).to.equal(200);
-
-
-        console.log(res.data);
-        // chai.expect(res.data).to.be.an('number');
-        // chai.expect(res.data).to.equal(1);
+        // chai.expect(res.data.id).to.be.an('number');
+        // chai.expect(res.data.id).to.equal(newUserID);
+        // chai.expect(res.data.username).to.be.an('string');
+        // chai.expect(res.data.username).to.equal('UPDATED_USER_NAME');
         done();
       })
 
@@ -178,7 +193,7 @@ describe('http://127.0.0.1:3030/users/update', () => {
 
 
 
-describe('http://127.0.0.1:3030/users/destroy', () => {
+describe("The Server's /users/destroy route", () => {
   it('should return 200', done => {
 
     axios.post('http://127.0.0.1:3030/users/destroy', { user_id: newUserID })
