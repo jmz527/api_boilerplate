@@ -1,4 +1,3 @@
-import http from 'http'
 import axios from 'axios'
 import chai from 'chai'
 
@@ -11,28 +10,23 @@ const newUser = {
 }
 
 var newUserID;
+const userID = 0;
 
 describe("The Server's / route", () => {
   it('should return 200', done => {
-    http.get('http://127.0.0.1:3030', res => { // console.log('statusCode', res.statusCode)
-      chai.expect(res.statusCode).to.equal(200);
+    axios.get('http://127.0.0.1:3030').then((res) => {
+      chai.expect(res.status).to.equal(200);
       done();
-    });
+    })
   });
 });
 
 
 describe("The Server's /users route", () => {
-  it('should return 200', done => {
-    http.get('http://127.0.0.1:3030', res => { // console.log('statusCode', res.statusCode)
-      chai.expect(res.statusCode).to.equal(200);
-      done();
-    });
-  });
-
-  it('should return an array of users', () => {
+  it('should return 200 and an array of users', () => {
     axios.get('http://127.0.0.1:3030/users')
       .then((res) => {
+        chai.expect(res.status).to.equal(200);
         chai.expect(res.data).to.be.an('object');
         chai.expect(res.data.users).to.be.an('array');
       })
@@ -40,18 +34,10 @@ describe("The Server's /users route", () => {
 });
 
 describe("The Server's /users/id/0 route", () => {
-  it('should return 200', done => {
-    http.get('http://127.0.0.1:3030/users/id/0', res => { // console.log('statusCode', res.statusCode)
-      chai.expect(res.statusCode).to.equal(200);
-      done();
-    });
-  });
-
-  const userID = 0;
-
-  it('should return a user', () => {
+  it('should return 200 and a user', () => {
     axios.get('http://127.0.0.1:3030/users/id/'+userID)
       .then((res) => {
+        chai.expect(res.status).to.equal(200);
         chai.expect(res.data).to.be.an('object');
         chai.expect(res.data.id).to.be.an('number');
         chai.expect(res.data.id).to.equal(userID);
