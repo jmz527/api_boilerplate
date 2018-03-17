@@ -2,49 +2,6 @@ import http from 'http'
 import axios from 'axios'
 import chai from 'chai'
 
-// import settle from 'axios/lib/core/settle'
-
-// function axiosTestAdapter(config) {
-//   // At this point:
-//   //  - config has been merged with defaults
-//   //  - request transformers have already run
-//   //  - request interceptors have already run
-  
-//   // Make the request using config provided
-//   // Upon response settle the Promise
-
-//   console.log("config", config);
-
-
-//   return new Promise(function(resolve, reject) {
-  
-//     var response = {
-//       // data: responseData,
-//       // status: request.status,
-//       // statusText: request.statusText,
-//       // headers: responseHeaders,
-//       config: config,
-//       // request: request
-//     };
-
-//     settle(resolve, reject, response);
-
-//     // From here:
-//     //  - response transformers will run
-//     //  - response interceptors will run
-//   });
-// }
-
-
-// const config = {
-//   // `timeout` specifies the number of milliseconds before the request times out.
-//   // If the request takes longer than `timeout`, the request will be aborted.
-//   timeout: 1000,
-//   // `adapter` allows custom handling of requests which makes testing easier.
-//   // Return a promise and supply a valid response (see lib/adapters/README.md).
-//   adapter: axiosTestAdapter,
-// }
-
 describe("The Server's / route", () => {
   it('should return 200', done => {
     http.get('http://127.0.0.1:3030', res => { // console.log('statusCode', res.statusCode)
@@ -181,13 +138,18 @@ describe("The Server's /users/update route", () => {
     axios.post('http://127.0.0.1:3030/users/update/' + newUserID, { username: "UPDATED_USER_NAME" })
       .then((res) => {
         chai.expect(res.status).to.equal(200);
-        // chai.expect(res.data.id).to.be.an('number');
-        // chai.expect(res.data.id).to.equal(newUserID);
-        // chai.expect(res.data.username).to.be.an('string');
-        // chai.expect(res.data.username).to.equal('UPDATED_USER_NAME');
-        done();
-      })
 
+        // http.get('http://127.0.0.1:3030/users/id/' + newUserID, res => { // console.log('statusCode', res.statusCode)
+        //   chai.expect(res.statusCode).to.equal(200);
+        //   chai.expect(res.data.id).to.be.an('number');
+        //   chai.expect(res.data.id).to.equal(newUserID);
+        //   chai.expect(res.data.username).to.be.an('string');
+        //   chai.expect(res.data.username).to.equal('UPDATED_USER_NAME');
+
+        //   done();
+        // });
+
+      })
   });
 });
 
