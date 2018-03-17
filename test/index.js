@@ -140,25 +140,18 @@ describe("The Server's /users/update route", () => {
       })
   });
 
-  // it('updated the user properly', done => {
+  it('updated the user properly', done => {
 
-  //   http.get('http://127.0.0.1:3030/users/id/' + newUserID, res => { // console.log('statusCode', res.statusCode)
+    axios.get('http://127.0.0.1:3030/users/id/' + newUserID).then((res) => { // console.log('status', res.status)
+      chai.expect(res.status).to.equal(200);
+      chai.expect(res.data.id).to.be.an('number');
+      chai.expect(res.data.id).to.equal(newUserID);
+      chai.expect(res.data.username).to.be.an('string');
+      chai.expect(res.data.username).to.equal('UPDATED_USER_NAME');
+      done();
+    })
 
-
-  // // console.log("/================/")
-  // // console.log(res.statusCode)
-  // // console.log(res.body)
-  // // console.log("/================/")
-
-  //     chai.expect(res.statusCode).to.equal(200);
-  //     // chai.expect(res.data.id).to.be.an('number');
-  //     // chai.expect(res.data.id).to.equal(newUserID);
-  //     // chai.expect(res.data.username).to.be.an('string');
-  //     // chai.expect(res.data.username).to.equal('UPDATED_USER_NAME');
-  //     done();
-  //   });
-
-  // })
+  })
 });
 
 
