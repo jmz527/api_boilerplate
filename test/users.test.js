@@ -1,6 +1,9 @@
 import axios from 'axios'
 import chai from 'chai'
 
+var newUserID;
+const userID = 0;
+const userPW = 'password527'
 const newUser = {
   first_name: 'TEST',
   last_name: 'TEST',
@@ -8,27 +11,12 @@ const newUser = {
   username: 'test123',
   password: '$2a$10$fmF.iYGBOD.Y1riR6nlhLuvzAa7Tj1YZBTaaPDZImDLRlEjSYk1rm',
 }
-const userPW = 'password527'
-
 const updatedUser = {
   first_name: 'UPDATED_FIRST_NAME',
   last_name: 'UPDATED_LAST_NAME',
   email: 'updated@example.com',
   username: "UPDATED_USER_NAME"
 }
-
-var newUserID;
-const userID = 0;
-
-describe("The Server's / route", () => {
-  it('returns 200', done => {
-    axios.get('http://127.0.0.1:3030').then((res) => {
-      chai.expect(res.status).to.equal(200);
-      done();
-    })
-  });
-});
-
 
 describe("The Server's /users route", () => {
   it('returns 200', () => {
