@@ -2,48 +2,15 @@ import http from 'http'
 import axios from 'axios'
 import chai from 'chai'
 
-// import settle from 'axios/lib/core/settle'
+const newUser = {
+  first_name: 'TEST',
+  last_name: 'TEST',
+  email: 'test@example.com',
+  username: 'test123',
+  password: '$2a$10$fmF.iYGBOD.Y1riR6nlhLuvzAa7Tj1YZBTaaPDZImDLRlEjSYk1rm',
+}
 
-// function axiosTestAdapter(config) {
-//   // At this point:
-//   //  - config has been merged with defaults
-//   //  - request transformers have already run
-//   //  - request interceptors have already run
-  
-//   // Make the request using config provided
-//   // Upon response settle the Promise
-
-//   console.log("config", config);
-
-
-//   return new Promise(function(resolve, reject) {
-  
-//     var response = {
-//       // data: responseData,
-//       // status: request.status,
-//       // statusText: request.statusText,
-//       // headers: responseHeaders,
-//       config: config,
-//       // request: request
-//     };
-
-//     settle(resolve, reject, response);
-
-//     // From here:
-//     //  - response transformers will run
-//     //  - response interceptors will run
-//   });
-// }
-
-
-// const config = {
-//   // `timeout` specifies the number of milliseconds before the request times out.
-//   // If the request takes longer than `timeout`, the request will be aborted.
-//   timeout: 1000,
-//   // `adapter` allows custom handling of requests which makes testing easier.
-//   // Return a promise and supply a valid response (see lib/adapters/README.md).
-//   adapter: axiosTestAdapter,
-// }
+var newUserID;
 
 describe("The Server's / route", () => {
   it('should return 200', done => {
@@ -69,9 +36,6 @@ describe("The Server's /users route", () => {
         chai.expect(res.data).to.be.an('object');
         chai.expect(res.data.users).to.be.an('array');
       })
-      // .catch((err) => {
-      //   console.log(err);
-      // });
   });
 });
 
@@ -101,16 +65,6 @@ describe("The Server's /users/id/0 route", () => {
   });
 
 });
-
-const newUser = {
-  first_name: 'TEST',
-  last_name: 'TEST',
-  email: 'test@example.com',
-  username: 'test123',
-  password: '$2a$10$fmF.iYGBOD.Y1riR6nlhLuvzAa7Tj1YZBTaaPDZImDLRlEjSYk1rm',
-}
-
-var newUserID;
 
 describe("The Server's /users/create route", () => {
   it('should return 200 and { created: true, user_id: <id> }', done => {
@@ -164,6 +118,7 @@ describe("The Server's /users/auth route", () => {
       chai.expect(res.data.username).to.equal(newUser.username);
       chai.expect(res.data.password).to.be.an('string');
       chai.expect(res.data.password).to.equal(newUser.password);
+
       chai.expect(res.data.createdAt).to.be.an('string');
       // chai.expect(res.data.createdAt).to.equal(newUser.createdAt);
       chai.expect(res.data.updatedAt).to.be.an('string');
@@ -181,15 +136,31 @@ describe("The Server's /users/update route", () => {
     axios.post('http://127.0.0.1:3030/users/update/' + newUserID, { username: "UPDATED_USER_NAME" })
       .then((res) => {
         chai.expect(res.status).to.equal(200);
-        // chai.expect(res.data.id).to.be.an('number');
-        // chai.expect(res.data.id).to.equal(newUserID);
-        // chai.expect(res.data.username).to.be.an('string');
-        // chai.expect(res.data.username).to.equal('UPDATED_USER_NAME');
         done();
       })
-
   });
+
+  // it('updated the user properly', done => {
+
+  //   http.get('http://127.0.0.1:3030/users/id/' + newUserID, res => { // console.log('statusCode', res.statusCode)
+
+
+  // // console.log("/================/")
+  // // console.log(res.statusCode)
+  // // console.log(res.body)
+  // // console.log("/================/")
+
+  //     chai.expect(res.statusCode).to.equal(200);
+  //     // chai.expect(res.data.id).to.be.an('number');
+  //     // chai.expect(res.data.id).to.equal(newUserID);
+  //     // chai.expect(res.data.username).to.be.an('string');
+  //     // chai.expect(res.data.username).to.equal('UPDATED_USER_NAME');
+  //     done();
+  //   });
+
+  // })
 });
+
 
 
 

@@ -69,12 +69,7 @@ router.post('/create', (req, res) => {
 
 /* POST update user */
 router.post('/update/:user_id', (req, res) => {
-  let newObj = {
-    id: req.params.user_id,
-    username: req.body.username
-  }
-
-  models.User.upsert(newObj).then((m) => { console.log(`\x1b[33m%s\x1b[0m`, 'USER UPDATED!!!!!!')
+  models.User.upsert({ id: req.params.user_id, ...req.body }).then((m) => { console.log(`\x1b[33m%s\x1b[0m`, 'USER UPDATED!!!!!!')
     res.json(m)
   })
 })
