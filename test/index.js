@@ -9,11 +9,18 @@ const newUser = {
   password: '$2a$10$fmF.iYGBOD.Y1riR6nlhLuvzAa7Tj1YZBTaaPDZImDLRlEjSYk1rm',
 }
 
+const updatedUser = {
+  first_name: 'UPDATED_FIRST_NAME',
+  last_name: 'UPDATED_LAST_NAME',
+  email: 'updated@example.com',
+  username: "UPDATED_USER_NAME"
+}
+
 var newUserID;
 const userID = 0;
 
 describe("The Server's / route", () => {
-  it('should return 200', done => {
+  it('returns 200', done => {
     axios.get('http://127.0.0.1:3030').then((res) => {
       chai.expect(res.status).to.equal(200);
       done();
@@ -23,24 +30,75 @@ describe("The Server's / route", () => {
 
 
 describe("The Server's /users route", () => {
-  it('should return 200 and an array of users', () => {
+  it('returns 200', () => {
+    axios.get('http://127.0.0.1:3030/users')
+      .then((res) => chai.expect(res.status).to.equal(200))
+  });
+
+  it('returns a data object', () => {
     axios.get('http://127.0.0.1:3030/users')
       .then((res) => {
         chai.expect(res.status).to.equal(200);
         chai.expect(res.data).to.be.an('object');
+      })
+  })
+
+  it('returns a data object with an array', () => {
+    axios.get('http://127.0.0.1:3030/users')
+      .then((res) => {
+        chai.expect(res.status).to.equal(200);
+        chai.expect(res.data).to.be.an('object');
+        chai.expect(res.data.hasOwnProperty('users')).to.be.true;
         chai.expect(res.data.users).to.be.an('array');
       })
-  });
+  })
 });
 
 describe("The Server's /users/id/0 route", () => {
-  it('should return 200 and a user', () => {
+  it('returns 200', () => {
+    axios.get('http://127.0.0.1:3030/users/id/'+userID)
+      .then((res) => chai.expect(res.status).to.equal(200))
+  });
+
+
+  it('returns a data object', () => {
     axios.get('http://127.0.0.1:3030/users/id/'+userID)
       .then((res) => {
         chai.expect(res.status).to.equal(200);
         chai.expect(res.data).to.be.an('object');
+      })
+  });
+
+
+  it('returns a data object with correct user property names', () => {
+    axios.get('http://127.0.0.1:3030/users/id/'+userID)
+      .then((res) => {
+        chai.expect(res.status).to.equal(200);
+        chai.expect(res.data).to.be.an('object');
+        chai.expect(res.data.hasOwnProperty('id')).to.be.true;
+        chai.expect(res.data.hasOwnProperty('first_name')).to.be.true;
+        chai.expect(res.data.hasOwnProperty('last_name')).to.be.true;
+        chai.expect(res.data.hasOwnProperty('username')).to.be.true;
+        chai.expect(res.data.hasOwnProperty('password')).to.be.true;
+        chai.expect(res.data.hasOwnProperty('createdAt')).to.be.true;
+        chai.expect(res.data.hasOwnProperty('updatedAt')).to.be.true;
+      })
+  });
+
+
+  it('returns a data object with correct user property types', () => {
+    axios.get('http://127.0.0.1:3030/users/id/'+userID)
+      .then((res) => {
+        chai.expect(res.status).to.equal(200);
+        chai.expect(res.data).to.be.an('object');
+        chai.expect(res.data.hasOwnProperty('id')).to.be.true;
+        chai.expect(res.data.hasOwnProperty('first_name')).to.be.true;
+        chai.expect(res.data.hasOwnProperty('last_name')).to.be.true;
+        chai.expect(res.data.hasOwnProperty('username')).to.be.true;
+        chai.expect(res.data.hasOwnProperty('password')).to.be.true;
+        chai.expect(res.data.hasOwnProperty('createdAt')).to.be.true;
+        chai.expect(res.data.hasOwnProperty('updatedAt')).to.be.true;
         chai.expect(res.data.id).to.be.an('number');
-        chai.expect(res.data.id).to.equal(userID);
         chai.expect(res.data.first_name).to.be.an('string');
         chai.expect(res.data.last_name).to.be.an('string');
         chai.expect(res.data.username).to.be.an('string');
@@ -50,10 +108,22 @@ describe("The Server's /users/id/0 route", () => {
       })
   });
 
+  it('returns a data object with a matching user id', () => {
+    axios.get('http://127.0.0.1:3030/users/id/'+userID)
+      .then((res) => {
+        chai.expect(res.status).to.equal(200);
+        chai.expect(res.data).to.be.an('object');
+        chai.expect(res.data.hasOwnProperty('id')).to.be.true;
+        chai.expect(res.data.id).to.be.an('number');
+        chai.expect(res.data.id).to.equal(userID);
+      })
+  });
+
+
 });
 
 describe("The Server's /users/create route", () => {
-  it('should return 200 and { created: true, user_id: <id> }', done => {
+  it('returns 200 and { created: true, user_id: <id> }', done => {
 
     axios.post('http://127.0.0.1:3030/users/create', newUser)
       .then((res) => {
@@ -70,7 +140,7 @@ describe("The Server's /users/create route", () => {
 
 
 describe("The Server's /users/create route", () => {
-  it('should return 200 and { created: false }', done => {
+  it('returns 200 and { created: false }', done => {
 
     axios.post('http://127.0.0.1:3030/users/create', newUser)
       .then((res) => {
@@ -86,7 +156,7 @@ describe("The Server's /users/create route", () => {
 
 
 describe("The Server's /users/auth route", () => {
-  it('should return 200', done => {
+  it('returns 200', done => {
 
     axios.post('http://127.0.0.1:3030/users/auth', {
       username: newUser.username,
@@ -117,9 +187,9 @@ describe("The Server's /users/auth route", () => {
 
 
 describe("The Server's /users/update route", () => {
-  it('should return 200', done => {
+  it('returns 200', done => {
 
-    axios.post('http://127.0.0.1:3030/users/update/' + newUserID, { username: "UPDATED_USER_NAME" })
+    axios.post('http://127.0.0.1:3030/users/update/' + newUserID, updatedUser)
       .then((res) => {
         chai.expect(res.status).to.equal(200);
         done();
@@ -132,8 +202,14 @@ describe("The Server's /users/update route", () => {
       chai.expect(res.status).to.equal(200);
       chai.expect(res.data.id).to.be.an('number');
       chai.expect(res.data.id).to.equal(newUserID);
+      chai.expect(res.data.first_name).to.be.an('string');
+      chai.expect(res.data.first_name).to.equal(updatedUser.first_name);
+      chai.expect(res.data.last_name).to.be.an('string');
+      chai.expect(res.data.last_name).to.equal(updatedUser.last_name);
+      chai.expect(res.data.email).to.be.an('string');
+      chai.expect(res.data.email).to.equal(updatedUser.email);
       chai.expect(res.data.username).to.be.an('string');
-      chai.expect(res.data.username).to.equal('UPDATED_USER_NAME');
+      chai.expect(res.data.username).to.equal(updatedUser.username);
       done();
     })
 
@@ -144,7 +220,7 @@ describe("The Server's /users/update route", () => {
 
 
 describe("The Server's /users/destroy route", () => {
-  it('should return 200', done => {
+  it('returns 200', done => {
 
     axios.post('http://127.0.0.1:3030/users/destroy', { user_id: newUserID })
       .then((res) => {
