@@ -1,4 +1,4 @@
-# express_sequelize_server
+# api_boilerplate
 
 homemade boilerplate server for Express/SQLite3/Sequelize
 
@@ -19,8 +19,8 @@ ExpressJS + SQLite3 + Sequelize
 First, clone this repo to a directory on your local machine and run `npm i`:
 
 ```sh
-git clone git@github.com:jmz527/express_sequelize_server.git
-cd express_sequelize_server/
+git clone git@github.com:jmz527/api_boilerplate.git
+cd api_boilerplate/
 yarn
 ```
 
