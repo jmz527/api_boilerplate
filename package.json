@@ -1,7 +1,7 @@
 {
-  "name": "express_sqlite",
+  "name": "api_boilerplate",
   "version": "1.0.0",
-  "description": "boilerplate for express server with sqlite3 db",
+  "description": "homemade boilerplate server for Express/SQLite3/Sequelize",
   "main": "server.js",
   "scripts": {
     "start": "nodemon src/server.js --exec babel-node --presets es2015,stage-2",
