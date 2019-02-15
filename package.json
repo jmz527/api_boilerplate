@@ -2,12 +2,11 @@
   "name": "api_boilerplate",
   "version": "1.0.0",
   "description": "homemade boilerplate server for Express/SQLite3/Sequelize",
-  "main": "server.js",
+  "main": "bin/www",
   "scripts": {
-    "start:dev": "nodemon ./bin/www --exec babel-node --presets es2015,stage-2",
-    "start": "nodemon src/server.js --exec babel-node --presets es2015,stage-2",
-    "build": "babel src -d dist",
-    "serve": "node dist/server.js",
+    "start": "nodemon ./bin/www --exec babel-node --presets es2015,stage-2",
+    "build": "babel server -d build",
+    "serve": "node build/server.js",
     "test": "mocha --compilers js:babel-register"
   },
   "author": "",

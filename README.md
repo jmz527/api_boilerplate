@@ -29,8 +29,8 @@ yarn
 
 ```sh
 yarn start - starts up the development environment
-yarn build - builds the dist dir from the src
-yarn serve - serves up the server within the dist dir
+yarn build - builds the build dir from the src
+yarn serve - serves up the server within the build dir
 yarn test - runs Mocha/Chai tests within the test dir
 ```
 
@@ -65,7 +65,7 @@ sequelize db:seed:undo:all
 
 
 
-sudo rm -rv dist
+sudo rm -rv build
 sudo rm -rv config migrations models seeders node_modules
 ```
 
