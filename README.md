@@ -1,31 +1,27 @@
 # api_boilerplate
 
-homemade boilerplate server for Express/SQLite3/Sequelize
+homemade boilerplate server for Express/Webpack/PostgreSQL/Sequelize
 
 # Description
 
-This is a little express server and configuration files for sequelize and an sqlite3 database.
+This is a little express server and configuration files for sequelize and an postgreSQL database.
 
 Also includes a seed file with 101 users
 
 
 # Technologies Used:
 
-ExpressJS + SQLite3 + Sequelize
+ExpressJS + Webpack + PostgreSQL + Sequelize
 
 
 # Installation Instructions:
 
-First, clone this repo to a directory on your local machine and run `npm i`:
+First, clone this repo to a directory on your local machine and run `yarn i`:
 
 ```sh
 git clone git@github.com:jmz527/api_boilerplate.git
 cd api_boilerplate/
 yarn
-```
-
-```sh
-npm install -g sequelize-cli
 ```
 
 # Commands:
@@ -40,27 +36,37 @@ yarn test - runs Mocha/Chai tests within the test dir
 
 # Sequelize-CLI Steps
 
+Must install `sequelize-cli` globally before these commands will work.
+
 ```sh
-node_modules/.bin/sequelize init
+npm install -g sequelize-cli
+```
 
-node_modules/.bin/sequelize model:generate --name User --attributes email:string,first_name:string,last_name:string,username:string,password:string
+```sh
+sequelize init
 
-node_modules/.bin/sequelize db:migrate
+sequelize model:create --name Todo --attributes title:string
 
-node_modules/.bin/sequelize db:migrate:undo
+sequelize model:create --name TodoItem --attributes content:string,complete:boolean
 
-node_modules/.bin/sequelize seed:generate --name demo-user
+sequelize model:generate --name User --attributes email:string,first_name:string,last_name:string,username:string,password:string
 
-node_modules/.bin/sequelize db:seed:all
+sequelize db:migrate
 
-node_modules/.bin/sequelize db:seed:undo
+sequelize db:migrate:undo
 
-node_modules/.bin/sequelize db:seed:undo:all
+sequelize seed:generate --name demo-user
+
+sequelize db:seed:all
+
+sequelize db:seed:undo
+
+sequelize db:seed:undo:all
 
 
 
 sudo rm -rv dist
-sudo rm -rv config migrations models seeders db.development.sqlite node_modules
+sudo rm -rv config migrations models seeders node_modules
 ```
 
 

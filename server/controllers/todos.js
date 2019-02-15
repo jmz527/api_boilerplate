@@ -1,5 +1,4 @@
-const Todo = require('../models').Todo;
-const TodoItem = require('../models').TodoItem;
+import { Todo, TodoItem } from '../models';
 
 module.exports = {
   create(req, res) {

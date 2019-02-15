@@ -58,5 +58,4 @@ typings/
 .env
 
 # application specific
-db.development.sqlite
 dist/

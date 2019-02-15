@@ -1,5 +1,8 @@
-const todosController = require('../controllers').todos;
-const todoItemsController = require('../controllers').todoItems;
+import {
+  todos as todosController,
+  todoItems as todoItemsController
+} from '../controllers';
+import users from './users';
 
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({
@@ -21,4 +24,9 @@ module.exports = (app) => {
     res.status(405).send({
       message: 'Method Not Allowed',
   }));
+
+  // Routes
+  // app.use('/', index)
+  app.use('/api/users', users);
+
 };
