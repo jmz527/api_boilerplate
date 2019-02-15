@@ -24,6 +24,10 @@ cd api_boilerplate/
 yarn
 ```
 
+```sh
+npm install -g sequelize-cli
+```
+
 # Commands:
 
 
@@ -61,6 +65,8 @@ sudo rm -rv config migrations models seeders db.development.sqlite node_modules
 
 
 # Thanks
+
+https://scotch.io/tutorials/getting-started-with-node-express-and-postgres-using-sequelize
 
 http://docs.sequelizejs.com/manual/tutorial/migrations.html
 
