@@ -43,17 +43,18 @@ describe("The Server's /todos/0 route", () => {
   });
 
 
-  it('returns a data object', () => {
+  it('returns a data object', done => {
     axios.get('http://127.0.0.1:8000/api/todos/' + todoID)
       .then((res) => {
         chai.expect(res.status).to.equal(200);
         chai.expect(res.hasOwnProperty('data')).to.be.true;
         chai.expect(res.data).to.be.an('object');
+        done();
       });
   });
 
 
-  it('returns a data object with correct user property names', () => {
+  it('returns a data object with correct user property names', done => {
     axios.get('http://127.0.0.1:8000/api/todos/' + todoID)
       .then((res) => {
         chai.expect(res.status).to.equal(200);
@@ -63,11 +64,12 @@ describe("The Server's /todos/0 route", () => {
         chai.expect(res.data.hasOwnProperty('title')).to.be.true;
         chai.expect(res.data.hasOwnProperty('createdAt')).to.be.true;
         chai.expect(res.data.hasOwnProperty('updatedAt')).to.be.true;
+        done();
       });
   });
 
 
-  it('returns a data object with correct user property types', () => {
+  it('returns a data object with correct user property types', done => {
     axios.get('http://127.0.0.1:8000/api/todos/' + todoID)
       .then((res) => {
         chai.expect(res.status).to.equal(200);
@@ -81,10 +83,11 @@ describe("The Server's /todos/0 route", () => {
         chai.expect(res.data.title).to.be.an('string');
         chai.expect(res.data.createdAt).to.be.an('string');
         chai.expect(res.data.updatedAt).to.be.an('string');
+        done();
       });
   });
 
-  it('returns a data object with a matching user id', () => {
+  it('returns a data object with a matching user id', done => {
     axios.get('http://127.0.0.1:8000/api/todos/' + todoID)
       .then((res) => {
         chai.expect(res.status).to.equal(200);
@@ -93,6 +96,7 @@ describe("The Server's /todos/0 route", () => {
         chai.expect(res.data.hasOwnProperty('id')).to.be.true;
         chai.expect(res.data.id).to.be.an('number');
         chai.expect(res.data.id).to.equal(todoID);
+        done();
       });
   });
 
