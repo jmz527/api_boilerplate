@@ -40,6 +40,9 @@ Must install `sequelize-cli` globally before these commands will work.
 
 ```sh
 npm install -g sequelize-cli
+
+postgres -D /usr/local/var/postgres
+
 ```
 
 ```sh
