@@ -38,13 +38,13 @@ describe("The Server's /todos route", () => {
 
 describe("The Server's /todos/0 route", () => {
   it('returns 200', () => {
-    axios.get('http://127.0.0.1:8000/api/todos/'+todoID)
+    axios.get('http://127.0.0.1:8000/api/todos/' + todoID)
       .then((res) => chai.expect(res.status).to.equal(200));
   });
 
 
   it('returns a data object', () => {
-    axios.get('http://127.0.0.1:8000/api/todos/'+todoID)
+    axios.get('http://127.0.0.1:8000/api/todos/' + todoID)
       .then((res) => {
         chai.expect(res.status).to.equal(200);
         chai.expect(res.hasOwnProperty('data')).to.be.true;
@@ -54,7 +54,7 @@ describe("The Server's /todos/0 route", () => {
 
 
   it('returns a data object with correct user property names', () => {
-    axios.get('http://127.0.0.1:8000/api/todos/'+todoID)
+    axios.get('http://127.0.0.1:8000/api/todos/' + todoID)
       .then((res) => {
         chai.expect(res.status).to.equal(200);
         chai.expect(res.hasOwnProperty('data')).to.be.true;
@@ -68,7 +68,7 @@ describe("The Server's /todos/0 route", () => {
 
 
   it('returns a data object with correct user property types', () => {
-    axios.get('http://127.0.0.1:8000/api/todos/'+todoID)
+    axios.get('http://127.0.0.1:8000/api/todos/' + todoID)
       .then((res) => {
         chai.expect(res.status).to.equal(200);
         chai.expect(res.hasOwnProperty('data')).to.be.true;
@@ -85,7 +85,7 @@ describe("The Server's /todos/0 route", () => {
   });
 
   it('returns a data object with a matching user id', () => {
-    axios.get('http://127.0.0.1:8000/api/todos/'+todoID)
+    axios.get('http://127.0.0.1:8000/api/todos/' + todoID)
       .then((res) => {
         chai.expect(res.status).to.equal(200);
         chai.expect(res.hasOwnProperty('data')).to.be.true;
@@ -197,11 +197,11 @@ describe("Deleting the Server's /todos/:id:/items/:id: route", () => {
 
 
 describe("Deleting using the Server's /todos route", () => {
-  it('returns 200', done => {
+  it('returns 204', done => {
 
     axios.delete('http://127.0.0.1:8000/api/todos/' + newTodoID)
       .then((res) => {
-        chai.expect(res.status).to.equal(200);
+        chai.expect(res.status).to.equal(204);
         done();
       });
 
