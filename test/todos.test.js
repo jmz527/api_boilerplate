@@ -2,7 +2,7 @@ import axios from 'axios'
 import chai from 'chai'
 
 var newTodoID, newTodoItemID;
-const todoID = 1;
+const todoID = 2;
 const newTodo = { title: 'TEST_TITLE' };
 const updatedTodo = { title: 'UPDATED_TITLE' };
 const newTodoItem = { content: 'TEST_CONTENT' };
@@ -36,7 +36,7 @@ describe("The Server's /todos route", () => {
   });
 });
 
-describe("The Server's /todos/0 route", () => {
+describe("The Server's /todos/:id: route", () => {
   it('returns 200', () => {
     axios.get('http://127.0.0.1:8000/api/todos/' + todoID)
       .then((res) => chai.expect(res.status).to.equal(200));
