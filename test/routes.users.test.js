@@ -9,7 +9,7 @@ const generateUUID = () => {
   });
 };
 
-describe("Testing the Server's Todo Routes", () => {
+describe("Testing the Server's User Routes", () => {
 
   describe("# the Server's fetch all /api/users route", () => {
     let res;

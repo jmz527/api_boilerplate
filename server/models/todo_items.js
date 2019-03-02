@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const TodoItem = sequelize.define('TodoItem', {
+  const TodoItems = sequelize.define('todo_items', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -15,14 +15,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
-  });
+  }, {});
 
-  TodoItem.associate = (models) => {
-    TodoItem.belongsTo(models.Todo, {
+  TodoItems.associate = function(models) {
+    TodoItems.belongsTo(models.todos, {
       foreignKey: 'todoId',
       onDelete: 'CASCADE',
     });
   };
-
-  return TodoItem;
+  return TodoItems;
 };

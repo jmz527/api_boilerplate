@@ -50,11 +50,11 @@ createdb api-boilerplate-dev
 ```sh
 sequelize init
 
-sequelize model:create --name Todo --attributes title:string
+sequelize model:create --name todos --attributes title:string
 
-sequelize model:create --name TodoItem --attributes content:string,complete:boolean
+sequelize model:create --name todo_items --attributes content:string,complete:boolean
 
-sequelize model:generate --name User --attributes email:string,first_name:string,last_name:string,username:string,password:string
+sequelize model:generate --name users --attributes email:string,first_name:string,last_name:string,username:string,password:string
 
 sequelize db:migrate
 

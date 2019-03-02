@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Todo = sequelize.define('Todo', {
+  const Todos = sequelize.define('todos', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -11,14 +11,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-  });
+  }, {});
 
-  Todo.associate = (models) => {
-    Todo.hasMany(models.TodoItem, {
+  Todos.associate = function(models) {
+    Todos.hasMany(models.todo_items, {
       foreignKey: 'todoId',
       as: 'todoItems',
     });
   };
-
-  return Todo;
+  return Todos;
 };
