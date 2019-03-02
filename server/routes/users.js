@@ -11,7 +11,7 @@ app.post('/auth', usersController.authenticate);
 app.get('/', usersController.fetchAll);
 
 /* GET single user. */
-app.get('/id/:user_id', usersController.fetchOne);
+app.get('/:user_id', usersController.fetchOne);
 
 /* POST create user */
 app.post('/create', usersController.create);
