@@ -14,12 +14,12 @@ app.get('/', usersController.fetchAll);
 app.get('/:user_id', usersController.fetchOne);
 
 /* POST create user */
-app.post('/create', usersController.create);
+app.post('/', usersController.create);
 
-/* POST update user */
-app.post('/update/:user_id', usersController.update);
+/* PUT update user */
+app.put('/:user_id', usersController.update);
 
-/* POST destroy user */
-app.post('/destroy', usersController.destroy);
+/* DELETE destroy user */
+app.delete('/', usersController.destroy);
 
 export default app;

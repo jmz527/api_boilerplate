@@ -1,6 +1,7 @@
 import axios from 'axios';
 import chai from 'chai';
 
+const API_URL = 'http://127.0.0.1:8000';
 const generateUUID = () => {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
     let r = Math.random() * 16|0, v = c == 'x' ? r : (r&0x3|0x8);
@@ -10,9 +11,8 @@ const generateUUID = () => {
 
 describe("The Server's /users route", () => {
   let res;
-  beforeEach('make the API call', async () => {
-    // console.log('beforeEach');
-    res = await axios.get('http://127.0.0.1:8000/api/users');
+  before('fetch all users', async () => {
+    res = await axios.get(API_URL + '/api/users');
   });
 
   it('returns 200', () => {
@@ -34,8 +34,8 @@ const userID = 6;
 
 describe("The Server's /users/" + userID + " route", () => {
   let res;
-  beforeEach('make the API call', async () => {
-    res = await axios.get('http://127.0.0.1:8000/api/users/' + userID);
+  before('fetch a single user', async () => {
+    res = await axios.get(API_URL + '/api/users/' + userID);
   });
 
   it('returns 200', () => {
@@ -72,10 +72,10 @@ describe("The Server's /users/" + userID + " route", () => {
   });
 });
 
-describe("The Server's /users/create route", () => {
+describe("The Server's /users route", () => {
   let res, newUser, newUserID, userUUID, userPW = 'password527';
 
-  before('make the API call', async () => {
+  before('create a user', async () => {
     userUUID = generateUUID();
     newUser = {
       first_name: 'John',
@@ -85,8 +85,12 @@ describe("The Server's /users/create route", () => {
       password: '$2a$10$fmF.iYGBOD.Y1riR6nlhLuvzAa7Tj1YZBTaaPDZImDLRlEjSYk1rm',
     };
 
-    res = await axios.post('http://127.0.0.1:8000/api/users/create', newUser);
+    res = await axios.post(API_URL + '/api/users', newUser);
     newUserID = res.data.id;
+  });
+
+  after('delete the user you created', async () => {
+    await axios.delete(API_URL + '/api/users', { user_id: newUserID });
   });
 
   it('returns 201', () => {
@@ -100,12 +104,10 @@ describe("The Server's /users/create route", () => {
 
 });
 
-
-
 describe("The Server's /users/auth route", () => {
   let res, newUser, newUserID, userUUID, userPW = 'password527';
 
-  before('make the API call', async () => {
+  before('create a user and authenticate', async () => {
     userUUID = generateUUID();
     newUser = {
       first_name: 'John',
@@ -115,9 +117,13 @@ describe("The Server's /users/auth route", () => {
       password: '$2a$10$fmF.iYGBOD.Y1riR6nlhLuvzAa7Tj1YZBTaaPDZImDLRlEjSYk1rm',
     };
 
-    await axios.post('http://127.0.0.1:8000/api/users/create', newUser);
-    res = await axios.post('http://127.0.0.1:8000/api/users/auth', { username: newUser.username, password: userPW });
+    await axios.post(API_URL + '/api/users', newUser);
+    res = await axios.post(API_URL + '/api/users/auth', { username: newUser.username, password: userPW });
     newUserID = res.data.id;
+  });
+
+  after('delete the user you created', async () => {
+    await axios.delete(API_URL + '/api/users', { user_id: newUserID });
   });
 
   it('returns 200', () => {
@@ -161,11 +167,11 @@ describe("The Server's /users/auth route", () => {
 });
 
 
-describe("The Server's /users/update route", () => {
+describe("The Server's /users route", () => {
   let res, newUser, newUserID, userUUID, userPW = 'password527';
   let user;
 
-  before('make the API call', async () => {
+  before('create a user and update that user', async () => {
     userUUID = generateUUID();
     newUser = {
       first_name: 'John',
@@ -175,8 +181,7 @@ describe("The Server's /users/update route", () => {
       password: '$2a$10$fmF.iYGBOD.Y1riR6nlhLuvzAa7Tj1YZBTaaPDZImDLRlEjSYk1rm',
     };
 
-    await axios.post('http://127.0.0.1:8000/api/users/create', newUser);
-    res = await axios.post('http://127.0.0.1:8000/api/users/auth', { username: newUser.username, password: userPW });
+    res = await axios.post(API_URL + '/api/users', newUser);
     newUserID = res.data.id;
 
     const updatedUser = {
@@ -187,13 +192,12 @@ describe("The Server's /users/update route", () => {
       password: '$2a$10$fmF.iYGBOD.Y1riR6nlhLuvzAa7Tj1YZBTaaPDZImDLRlEjSYk1rm',
     };
 
-    res = await axios.post('http://127.0.0.1:8000/api/users/update/' + newUserID, updatedUser);
+    res = await axios.put(API_URL + '/api/users/' + newUserID, updatedUser);
   });
 
-  // afterEach(async () => {
-  //   // console.log('afterEach');
-  //   // await User.drop();
-  // });
+  after('delete the user you created', async () => {
+    await axios.delete(API_URL + '/api/users', { user_id: newUserID });
+  });
 
   it('returns 200', () => {
     chai.expect(res.status).to.equal(200);
@@ -221,16 +225,25 @@ describe("The Server's /users/update route", () => {
   // });
 });
 
-describe.skip("The Server's /users/destroy route", () => {
-  it('returns 200', done => {
+describe("The Server's /users route", () => {
+  let res, newUser, newUserID, userUUID, userPW = 'password527';
 
-    axios.post('http://127.0.0.1:8000/api/users/destroy', { user_id: newUserID })
-      .then((res) => {
-        chai.expect(res.status).to.equal(200);
-        chai.expect(res.data).to.be.an('number');
-        chai.expect(res.data).to.equal(1);
-        done();
-      });
+  before('create a user and delete that user', async () => {
+    userUUID = generateUUID();
+    newUser = {
+      first_name: 'John',
+      last_name: 'Doe',
+      email: 'j.doe.' + userUUID + '@example.com',
+      username: 'jdoe' + userUUID,
+      password: '$2a$10$fmF.iYGBOD.Y1riR6nlhLuvzAa7Tj1YZBTaaPDZImDLRlEjSYk1rm',
+    };
 
+    await axios.post(API_URL + '/api/users', newUser);
+    res = await axios.delete(API_URL + '/api/users', { user_id: newUserID });
+    // newUserID = res.data.id;
+  });
+
+  it('returns 204', () => {
+    chai.expect(res.status).to.equal(204);
   });
 });
