@@ -4,7 +4,6 @@ import chai from 'chai';
 const API_URL = 'http://127.0.0.1:8000';
 
 describe("Testing the Server's Index Routes", () => {
-
   describe("# the Server's / route", () => {
     let res;
     before('call root', async () => {
@@ -30,7 +29,7 @@ describe("Testing the Server's Index Routes", () => {
 
   describe("# the Server's /api route", () => {
     let res;
-    before('call root', async () => {
+    before('call API root', async () => {
       res = await axios.get(API_URL + '/api');
     });
 
