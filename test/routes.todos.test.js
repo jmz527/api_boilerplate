@@ -10,7 +10,7 @@ const generateUUID = () => {
 };
 
 
-describe("The Server's /api/todos route", () => {
+describe("The Server's fetch all /api/todos route", () => {
   let res;
 
   before('fetch all todos', async () => {
@@ -27,7 +27,7 @@ describe("The Server's /api/todos route", () => {
   });
 });
 
-describe("The Server's /api/todos/:id: route", () => {
+describe("The Server's fetch /api/todos/:id: route", () => {
   let res;
   const todoID = 2;
 
@@ -64,7 +64,7 @@ describe("The Server's /api/todos/:id: route", () => {
 });
 
 
-describe("Posting to the Server's /api/todos route", () => {
+describe("The Server's create /api/todos route", () => {
   let res, newTodoID;
   const newTodo = { title: 'TEST_TITLE' };
 
@@ -87,7 +87,7 @@ describe("Posting to the Server's /api/todos route", () => {
   });
 });
 
-describe("Updating the Server's /api/todos route", () => {
+describe("The Server's update /api/todos route", () => {
   let res, newTodoID;
   const newTodo = { title: 'TEST_TITLE' };
   const updatedTodo = { title: 'UPDATED_TITLE' };
@@ -98,8 +98,8 @@ describe("Updating the Server's /api/todos route", () => {
     res = await axios.put(API_URL + '/api/todos/' + newTodoID, updatedTodo);
   });
 
-  it('returns 200', () => {
-    chai.expect(res.status).to.equal(200);
+  it('returns 201', () => {
+    chai.expect(res.status).to.equal(201);
   });
 
   it('updated the todo properly', () => {
@@ -111,8 +111,8 @@ describe("Updating the Server's /api/todos route", () => {
 });
 
 
-describe("Posting to the Server's /api/todos/:id:/items route", () => {
-  let res, newTodoID, newTodoItemID;
+describe("The Server's create /api/todos/:id:/items route", () => {
+  let res, newTodoID;
   const newTodo = { title: 'TEST_TITLE' };
   const newTodoItem = { content: 'TEST_CONTENT' };
 
@@ -120,7 +120,6 @@ describe("Posting to the Server's /api/todos/:id:/items route", () => {
     res = await axios.post(API_URL + '/api/todos', newTodo);
     newTodoID = res.data.id;
     res = await axios.post(API_URL + '/api/todos/' + newTodoID + '/items', newTodoItem);
-    // newTodoItemID = res.data.id;
   });
 
   it('returns 201', () => {
@@ -138,7 +137,7 @@ describe("Posting to the Server's /api/todos/:id:/items route", () => {
 });
 
 
-describe("Updating the Server's /api/todos/:id:/items/:id: route", () => {
+describe("The Server's update /api/todos/:id:/items/:id: route", () => {
   let res, todoRes, newTodoID, newTodoItemID;
   const newTodo = { title: 'TEST_TITLE' };
   const newTodoItem = { content: 'TEST_CONTENT' };
@@ -153,8 +152,8 @@ describe("Updating the Server's /api/todos/:id:/items/:id: route", () => {
     todoRes = await axios.get(API_URL + '/api/todos/' + newTodoID);
   });
 
-  it('returns 200', () => {
-    chai.expect(res.status).to.equal(200);
+  it('returns 201', () => {
+    chai.expect(res.status).to.equal(201);
   });
 
   it('returns a data object', () => {
@@ -178,7 +177,7 @@ describe("Updating the Server's /api/todos/:id:/items/:id: route", () => {
 });
 
 
-describe("Deleting the Server's /api/todos/:id:/items/:id: route", () => {
+describe("The Server's delete /api/todos/:id:/items/:id: route", () => {
   let res, todoRes, newTodoID, newTodoItemID;
   const newTodo = { title: 'TEST_TITLE' };
   const newTodoItem = { content: 'TEST_CONTENT' };
@@ -203,7 +202,7 @@ describe("Deleting the Server's /api/todos/:id:/items/:id: route", () => {
 });
 
 
-describe("Deleting using the Server's /api/todos route", () => {
+describe("The Server's delete /api/todos route", () => {
   let res, newTodoID;
   const newTodo = { title: 'TEST_TITLE' };
 

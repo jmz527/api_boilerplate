@@ -2,18 +2,6 @@ import { User } from '../models';
 import bcrypt from 'bcryptjs';
 
 module.exports = {
-  fetchAll(req, res) {
-    return User.findAll().then((users) => {
-      res.status(200).json({ users })
-    }).catch(error => res.status(400).send(error));
-  },
-  fetchOne(req, res) {
-    return User.findOne({
-      where: { id: req.params.user_id }
-    })
-    .then((user) => res.status(200).json(user))
-    .catch(error => res.status(400).send(error));
-  },
   create(req, res) {
     /*
      findOrCreate returns an array containing the object that was found or created and
@@ -47,13 +35,24 @@ module.exports = {
       }
     })
   },
+  fetchAll(req, res) {
+    return User.findAll().then((users) => {
+      res.status(200).json({ users })
+    }).catch(error => res.status(400).send(error));
+  },
+  fetchOne(req, res) {
+    return User.findOne({
+      where: { id: req.params.user_id }
+    })
+    .then((user) => res.status(200).json(user))
+    .catch(error => res.status(400).send(error));
+  },
   update(req, res) {
     return User.upsert({ id: req.params.user_id, ...req.body })
       .then((created) => {
+        // console.log(created);
 
-        console.log(created);
-
-        res.status(200).send(created);
+        res.status(201).send(created);
       })
       .catch(error => res.status(400).send(error));
   },

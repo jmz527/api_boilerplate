@@ -9,7 +9,7 @@ const generateUUID = () => {
   });
 };
 
-describe("The Server's /api/users route", () => {
+describe("The Server's fetch all /api/users route", () => {
   let res;
   before('fetch all users', async () => {
     res = await axios.get(API_URL + '/api/users');
@@ -31,7 +31,7 @@ describe("The Server's /api/users route", () => {
 });
 
 
-describe("The Server's /api/users/:id: route", () => {
+describe("The Server's fetch /api/users/:id: route", () => {
   let res;
   const userID = 6;
 
@@ -73,7 +73,7 @@ describe("The Server's /api/users/:id: route", () => {
   });
 });
 
-describe("The Server's /api/users route", () => {
+describe("The Server's create /api/users route", () => {
   let res, newUser, newUserID, userUUID, userPW = 'password527';
 
   before('create a user', async () => {
@@ -105,7 +105,7 @@ describe("The Server's /api/users route", () => {
 
 });
 
-describe("The Server's /api/users/auth route", () => {
+describe("The Server's login /api/users/auth route", () => {
   let res, newUser, newUserID, userUUID, userPW = 'password527';
 
   before('create a user and authenticate', async () => {
@@ -168,23 +168,19 @@ describe("The Server's /api/users/auth route", () => {
 });
 
 
-describe("The Server's /api/users route", () => {
-  let res, newUser, newUserID, userUUID, userPW = 'password527';
+describe("The Server's update /api/users route", () => {
+  let res, newUserID, userUUID, userPW = 'password527';
   let user;
 
   before('create a user and update that user', async () => {
     userUUID = generateUUID();
-    newUser = {
+    const newUser = {
       first_name: 'John',
       last_name: 'Doe',
       email: 'j.doe.' + userUUID + '@example.com',
       username: 'jdoe' + userUUID,
       password: '$2a$10$fmF.iYGBOD.Y1riR6nlhLuvzAa7Tj1YZBTaaPDZImDLRlEjSYk1rm',
     };
-
-    res = await axios.post(API_URL + '/api/users', newUser);
-    newUserID = res.data.id;
-
     const updatedUser = {
       first_name: 'Jane',
       last_name: 'Doo',
@@ -193,6 +189,8 @@ describe("The Server's /api/users route", () => {
       password: '$2a$10$fmF.iYGBOD.Y1riR6nlhLuvzAa7Tj1YZBTaaPDZImDLRlEjSYk1rm',
     };
 
+    res = await axios.post(API_URL + '/api/users', newUser);
+    newUserID = res.data.id;
     res = await axios.put(API_URL + '/api/users/' + newUserID, updatedUser);
   });
 
@@ -200,8 +198,8 @@ describe("The Server's /api/users route", () => {
     await axios.delete(API_URL + '/api/users', { user_id: newUserID });
   });
 
-  it('returns 200', () => {
-    chai.expect(res.status).to.equal(200);
+  it('returns 201', () => {
+    chai.expect(res.status).to.equal(201);
   });
 
   // it('returns a data object', () => {
@@ -226,7 +224,7 @@ describe("The Server's /api/users route", () => {
   // });
 });
 
-describe("The Server's /api/users route", () => {
+describe("The Server's delete /api/users route", () => {
   let res, newUser, newUserID, userUUID, userPW = 'password527';
 
   before('create a user and delete that user', async () => {
