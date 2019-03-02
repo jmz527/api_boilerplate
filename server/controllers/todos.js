@@ -1,24 +1,24 @@
-import { Todo, TodoItem } from '../models';
+import { todos, todo_items } from '../models';
 
 module.exports = {
   create(req, res) {
-    return Todo
+    return todos
       .create({ title: req.body.title })
       .then(todo => res.status(201).send(todo))
       .catch(error => res.status(400).send(error));
   },
   list(req, res) {
-    return Todo
+    return todos
       .findAll({
-        include: [{ model: TodoItem, as: 'todoItems' }],
+        include: [{ model: todo_items, as: 'todoItems' }],
       })
       .then(todos => res.status(200).send(todos))
       .catch(error => res.status(400).send(error));
   },
   retrieve(req, res) {
-    return Todo
+    return todos
       .findByPk(req.params.todoId, {
-        include: [{ model: TodoItem, as: 'todoItems' }],
+        include: [{ model: todo_items, as: 'todoItems' }],
       })
       .then(todo => {
         if (!todo) {
@@ -29,9 +29,9 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
   update(req, res) {
-    return Todo
+    return todos
       .findByPk(req.params.todoId, {
-        include: [{ model: TodoItem, as: 'todoItems' }],
+        include: [{ model: todo_items, as: 'todoItems' }],
       })
       .then(todo => {
         if (!todo) {
@@ -45,7 +45,7 @@ module.exports = {
       .catch((error) => res.status(400).send(error));
   },
   destroy(req, res) {
-    return Todo
+    return todos
       .findByPk(req.params.todoId)
       .then(todo => {
         if (!todo) {

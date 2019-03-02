@@ -1,14 +1,14 @@
-import { TodoItem } from '../models';
+import { todo_items } from '../models';
 
 module.exports = {
   create(req, res) {
-    return TodoItem
+    return todo_items
       .create({ content: req.body.content, todoId: req.params.todoId })
       .then(todoItem => res.status(201).send(todoItem))
       .catch(error => res.status(400).send(error));
   },
   update(req, res) {
-    return TodoItem
+    return todo_items
       .find({
         where: { id: req.params.todoItemId, todoId: req.params.todoId },
       })
@@ -25,7 +25,7 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
   destroy(req, res) {
-    return TodoItem
+    return todo_items
       .find({
         where: { id: req.params.todoItemId, todoId: req.params.todoId },
       })
