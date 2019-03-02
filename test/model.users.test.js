@@ -1,4 +1,4 @@
-const expect = require('chai').expect;
+import chai from 'chai';
 const Sequelize = require('sequelize');
 
 // describe('users', () => {
@@ -34,10 +34,10 @@ const Sequelize = require('sequelize');
 //   describe('#find()', () => {
 //     it('should find a user', async () => {
 //       const user = await User.findOne({ where: { username: 'zaiste' }})
-//       expect(user).to.be.a('object');
-//       expect(user).to.have.property('username');
-//       expect(user).to.have.property('birthday');
-//       expect(user.username).to.equal('zaiste');
+//       chai.expect(user).to.be.a('object');
+//       chai.expect(user).to.have.property('username');
+//       chai.expect(user).to.have.property('birthday');
+//       chai.expect(user.username).to.equal('zaiste');
 //     });
 //   });
 // });

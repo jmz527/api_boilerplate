@@ -9,7 +9,7 @@ const generateUUID = () => {
   });
 };
 
-describe("The Server's /users route", () => {
+describe("The Server's /api/users route", () => {
   let res;
   before('fetch all users', async () => {
     res = await axios.get(API_URL + '/api/users');
@@ -30,10 +30,11 @@ describe("The Server's /users route", () => {
   });
 });
 
-const userID = 6;
 
-describe("The Server's /users/" + userID + " route", () => {
+describe("The Server's /api/users/:id: route", () => {
   let res;
+  const userID = 6;
+
   before('fetch a single user', async () => {
     res = await axios.get(API_URL + '/api/users/' + userID);
   });
@@ -72,7 +73,7 @@ describe("The Server's /users/" + userID + " route", () => {
   });
 });
 
-describe("The Server's /users route", () => {
+describe("The Server's /api/users route", () => {
   let res, newUser, newUserID, userUUID, userPW = 'password527';
 
   before('create a user', async () => {
@@ -104,7 +105,7 @@ describe("The Server's /users route", () => {
 
 });
 
-describe("The Server's /users/auth route", () => {
+describe("The Server's /api/users/auth route", () => {
   let res, newUser, newUserID, userUUID, userPW = 'password527';
 
   before('create a user and authenticate', async () => {
@@ -167,7 +168,7 @@ describe("The Server's /users/auth route", () => {
 });
 
 
-describe("The Server's /users route", () => {
+describe("The Server's /api/users route", () => {
   let res, newUser, newUserID, userUUID, userPW = 'password527';
   let user;
 
@@ -225,7 +226,7 @@ describe("The Server's /users route", () => {
   // });
 });
 
-describe("The Server's /users route", () => {
+describe("The Server's /api/users route", () => {
   let res, newUser, newUserID, userUUID, userPW = 'password527';
 
   before('create a user and delete that user', async () => {
