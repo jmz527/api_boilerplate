@@ -41,11 +41,10 @@ module.exports = {
     }).catch(error => res.status(400).send(error));
   },
   fetchOne(req, res) {
-    return User.findOne({
-      where: { id: req.params.user_id }
-    })
-    .then((user) => res.status(200).json(user))
-    .catch(error => res.status(400).send(error));
+    return User
+      .findByPk(req.params.user_id)
+      .then((user) => res.status(200).json(user))
+      .catch(error => res.status(400).send(error));
   },
   update(req, res) {
     return User.upsert({ id: req.params.user_id, ...req.body })

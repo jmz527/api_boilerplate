@@ -70,6 +70,9 @@ sequelize db:seed:undo:all
 
 sudo rm -rv build
 sudo rm -rv config migrations models seeders node_modules
+
+
+mocha --require babel-core/register --require babel-polyfill --grep "/api/todos" --exit
 ```
 
 

@@ -9,10 +9,8 @@ const generateUUID = () => {
   });
 };
 
-
 describe("The Server's fetch all /api/todos route", () => {
   let res;
-
   before('fetch all todos', async () => {
     res = await axios.get(API_URL + '/api/todos');
   });
@@ -28,11 +26,13 @@ describe("The Server's fetch all /api/todos route", () => {
 });
 
 describe("The Server's fetch /api/todos/:id: route", () => {
-  let res;
-  const todoID = 2;
+  let res, newTodoID;
+  const newTodo = { title: 'TEST_TITLE' };
 
-  before('fetch a single todo', async () => {
-    res = await axios.get(API_URL + '/api/todos/' + todoID);
+  before('post a new todo then fetch that todo', async () => {
+    res = await axios.post(API_URL + '/api/todos', newTodo);
+    newTodoID = res.data.id;
+    res = await axios.get(API_URL + '/api/todos/' + newTodoID);
   });
 
   it('returns 200', () => {
@@ -59,7 +59,7 @@ describe("The Server's fetch /api/todos/:id: route", () => {
   });
 
   it('returns a data object with a matching user id', () => {
-    chai.expect(res.data.id).to.equal(todoID);
+    chai.expect(res.data.id).to.equal(newTodoID);
   });
 });
 
@@ -70,6 +70,7 @@ describe("The Server's create /api/todos route", () => {
 
   before('post a new todo', async () => {
     res = await axios.post(API_URL + '/api/todos', newTodo);
+    // newTodoID = res.data.id;
   });
 
   it('returns 201', () => {
@@ -83,7 +84,6 @@ describe("The Server's create /api/todos route", () => {
 
   it('returns a data object with correct property names', () => {
     chai.expect(res.data.id).to.be.a("number");
-    // newTodoID = res.data.id;
   });
 });
 
